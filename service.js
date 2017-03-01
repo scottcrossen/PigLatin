@@ -16,7 +16,6 @@ app.listen(8080);
 messages=["message 1", "message 2","message 3","message 4", "message 5"];
 
 app.get('/messages', function(request, response){
-    console.log(request);
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify(messages));
 });
