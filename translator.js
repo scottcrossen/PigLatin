@@ -50,7 +50,7 @@ new_message=function($scope, $http, message){
 	method : "POST",
 	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080,
-	data: JSON.stringify(message)
+	body: JSON.stringify(message)
     }).then(function(response) {
 	console.log(response);
 	$scope.messages=response.data;
