@@ -1,4 +1,11 @@
 angular.module('app', [])
+.config(function($httpProvider) {
+    $httpProvider.defaults.transformRequest = function(data) {        
+        if (data === undefined) { return data; } 
+        return $httpProvider.param(data);
+    };
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
+})
     .controller('mainCtrl', function($scope,$http) {
 	$scope.messages = ["Error in retrieving messages"];
 	update_messages($scope, $http);
@@ -44,13 +51,19 @@ update_messages=function($scope, $http){
     });
 }
 new_message=function($scope, $http, message){
+    console.log(message);
     if($scope.messages.length>=5) $scope.messages.shift();
     $scope.messages.push(message);
     $http({
-	method : "post",
+	method : "POST",
 	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080,
-	data: message
+	data: {
+	    test: 'test'
+	},
+	headers: {
+            "Content-Type": undefined
+	}
     }).then(function(response) {
 	console.log(response);
 	$scope.messages=response.data;
