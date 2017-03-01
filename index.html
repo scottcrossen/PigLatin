@@ -5,14 +5,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script type='text/javascript' src='effects.js'></script>
+      <!-- If you like you can remove the link to the bootstrap stylesheet above -->
+  <script src="translator.js"></script>
 </head>
 <body>
-  <div class="container">
-    <!-- If you like you can remove the link to the bootstrap stylesheet in the top -->
-    <textarea id="input_text" class="form-control form-inline" style="margin-top: 25px" rows="5" id="comment" placeholder="Enter Text Here"></textarea>
-    <button id="query-submit" class="btn btn-outline btn-xl page-scroll">Translate</button>
-    <div id="output_text" class="well" style="margin-top: 25px; background-color: white; color: rgb(60,118,61);">	
+  <div ng-app='app' ng-controller='mainCtrl'>
+    <div class="container">
+      <form class="form-inlne" ng-submit="translate(inputfield)">
+	<textarea id="input_text" class="form-control form-inline" style="margin-top: 25px" rows="5" placeholder="Enter Text Here" ng-model="inputfield.text"></textarea>
+	<button type="submit" class="btn btn-outline btn-xl page-scroll">Translate</button>
+      </form>
+      <div id="output" class="well" style="margin-top: 25px; background-color: white; color: rgb(60,118,61);">	
+      </div>
     </div>
   </div>
 </body>
