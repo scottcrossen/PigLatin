@@ -51,6 +51,8 @@ new_message=function($scope, $http, message){
 	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080,
 	body: JSON.stringify(message)
+    },{
+	headers: {'Content-Type': 'application/json'}
     }).then(function(response) {
 	console.log(response);
 	$scope.messages=response.data;
