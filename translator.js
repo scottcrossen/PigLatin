@@ -5,7 +5,6 @@ angular.module('app', [])
 	   $scope.translation=translate(input.text);
        };
 });
-
 translate=function(text){
     if (text=="" || text==null) return "";
     english_array=text.replace(/[^\w\s]|_/g, function ($1) { return ' ' + $1 + ' ';}).replace(/[ ]+/g, ' ').split(' ');
