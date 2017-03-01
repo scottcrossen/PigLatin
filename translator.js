@@ -1,5 +1,5 @@
 angular.module('app', [])
-   .controller('mainCtrl', function($scope) {
+    .controller('mainCtrl', function($scope,$http) {
        $scope.translation = "";
        $scope.translate = function (input) {
 	   $scope.translation=translate(input.text);
@@ -22,4 +22,16 @@ translate=function(text){
 	else latin_array.push(english_array[i]);
     }
     return latin_array.join(" ").replace(/\s[^\w\s]|_/g, function($1){return $1.substring(1)});
+}
+update_messages=function(){
+    /*$http({
+	method : "GET",
+	url : "messages",
+	port: 8080
+    }).success(function(response) {
+	console.log(response);
+    }).failure(function(response){
+	console.log(response);
+    });*/
+    response=JSON.stringify(["msg1","msg2","msg3","msg4","msg5"])
 }
