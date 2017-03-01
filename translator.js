@@ -1,12 +1,20 @@
 angular.module('app', [])
     .controller('mainCtrl', function($scope,$http) {
-       $scope.translation = "";
-       $scope.translate = function (input) {
-	   $scope.translation=translate(input.text);
-       };
-});
+	$scope.messages = ["Error in retrieving messages"];
+	$scope.translation = "";
+	$scope.translate = function (input) {
+	    console.log("Translate button clicked"); 
+	    if (input != null && input != undefined){
+		new_message($scope, translate(input.text));
+	    }
+	};
+	$scope.refresh = function(){
+	    console.log("Refresh button clicked");
+	    update_messages($scope);
+	}
+    });
 translate=function(text){
-    if (text=="" || text==null) return "";
+    if (text=="" || text==null || text == undefined) return "";
     english_array=text.replace(/[^\w\s]|_/g, function ($1) { return ' ' + $1 + ' ';}).replace(/[ ]+/g, ' ').split(' ');
     translate_word=function(word){
 	switch (word.toLowerCase().search(/[aeiuo]/)){
@@ -23,15 +31,30 @@ translate=function(text){
     }
     return latin_array.join(" ").replace(/\s[^\w\s]|_/g, function($1){return $1.substring(1)});
 }
-update_messages=function(){
-    /*$http({
+update_messages=function($scope){
+    $http({
 	method : "GET",
 	url : "messages",
 	port: 8080
     }).success(function(response) {
 	console.log(response);
+	$scope.messages=response;
     }).failure(function(response){
 	console.log(response);
-    });*/
-    response=JSON.stringify(["msg1","msg2","msg3","msg4","msg5"])
+    });
+}
+new_message=function($scope, message){
+    if($scope.messages.length>=5) $scope.messages.shift();
+    $scope.messages.push(message);
+    $http({
+	method : "post",
+	url : "messages",
+	port: 8080,
+	data: message
+    }).success(function(response) {
+	console.log(response);
+	$scope.messages=response;
+    }).failure(function(response){
+	console.log(response);
+    });
 }

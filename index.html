@@ -12,13 +12,19 @@
 <body>
   <div ng-app='app' ng-controller='mainCtrl'>
     <div class="container">
+
+      <div class="message-list">
+	<div ng-repeat="message in messages" class="well" style="margin-top: 25px; background-color: white; color: black;">
+	  {{message}}
+	</div >
+      </div>
+
+      <button ng-click="refresh()" type="submit" class="btn btn-outline btn-xl page-scroll">Refresh Message Board</button>
+      
       <form class="form-inlne" ng-submit="translate(input)">
 	<textarea id="input_text" class="form-control form-inline" style="margin-top: 25px" rows="5" placeholder="Enter Text Here" ng-model="input.text"></textarea>
-	<button type="submit" class="btn btn-outline btn-xl page-scroll">Translate</button>
+	<button type="submit" class="btn btn-outline btn-xl page-scroll">Translate & Send</button>
       </form>
-      <div id="output" class="well" style="margin-top: 25px; background-color: white; color: black;">
-	<h3>{{translation}}</h3>
-      </div>
     </div>
   </div>
 </body>
