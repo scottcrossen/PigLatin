@@ -1,28 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pig Latin</title>
+  <title>Pig Latin Translator</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script type='text/javascript' src='effects.js'></script>
 </head>
 <body>
-<div class="container">
-  <!-- If you like you can remove the link to the bootstrap stylesheet in the top -->
-
-  <div class="row" style="margin-top: 25px">
-    <div class="col-xs-11">
-      <input id="server_host" placeholder="Enter Text Here" class="form-control form-inline"></input>
-    </div>
-    <div class="col-xs-1">
-      <button id="query-submit" class="btn btn-outline btn-xl page-scroll">Look up</button>
+  <div class="container">
+    <!-- If you like you can remove the link to the bootstrap stylesheet in the top -->
+    <input id="input_text" placeholder="Enter Text Here" class="form-control form-inline" style="margin-top: 25px"></input>
+    <button id="query-submit" class="btn btn-outline btn-xl page-scroll">Translate</button>
+    <div id="output_text" class="well" style="margin-top: 25px; background-color: white; color: rgb(60,118,61);">	
     </div>
   </div>
-  <div class="row">
-    <div id="response" class="well" style="margin-top: 25px; background-color: white; color: rgb(60,118,61);">	
-    </div>
-  </div>
-</div>
 </body>
 </html>
