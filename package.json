@@ -1,0 +1,7 @@
+{
+  "name": "Message Service",
+  "main": "service.js",
+  "dependencies": {
+    "express": "~4.10.2"
+  }
+}
