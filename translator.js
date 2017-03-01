@@ -48,7 +48,7 @@ new_message=function($scope, $http, message){
     $scope.messages.push(message);
     $http({
 	method : "post",
-	url : "messages",
+	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080,
 	data: message
     }).then(function(response) {
