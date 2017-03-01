@@ -7,6 +7,7 @@ angular.module('app', [])
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
 })
     .controller('mainCtrl', function($scope,$http) {
+	console.log("Angular initialized!");
 	$scope.messages = ["Error in retrieving messages"];
 	update_messages($scope, $http);
 	$scope.translate = function (input) {
@@ -46,13 +47,14 @@ update_messages=function($scope, $http){
     }).then(function(response) {
 	console.log("Get request suceeded");
         console.log("Get request finished with response:");
-	console.log(response);
+	console.log(response.data);
 	$scope.messages=response.data;
     }, function(response){
 	console.log("Get request failed");
         console.log("Get request finished with response:");
-	console.log(response);
+	console.log(response.data);
     });
+    return $scope.messages;
 }
 new_message=function($scope, $http, text){
     if($scope.messages.length>=5) $scope.messages.shift();
@@ -66,14 +68,15 @@ new_message=function($scope, $http, text){
 	data: {
 	    message: text
 	},
-    }, function(response) {
+    }).done(function(response) {
 	console.log("Post request suceeded");
 	$scope.messages=response;
     }).fail(function(response) {
 	console.log("Post request failed")
     }).always(function(response){
 	console.log("Post request finished with response:");
-	console.log(response.data);
+	console.log(response);
+	update_messages($scope, $http);
 });
 /*
     $http({
@@ -92,6 +95,7 @@ new_message=function($scope, $http, text){
     }, function(response){
 	console.log(response);
     });*/
+    return $scope.messages;
 }
 contains=function(array, object) {
     for (var i = 0; i < array.length; i++)
