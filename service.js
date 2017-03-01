@@ -1,16 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-// Add headers
+//var path = require('path')
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 
+//app.use(express.static(path.normalize(__dirname + '/')));
+//app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8080);
 
 messages=["message 1", "message 2","message 3","message 4", "message 5"];
