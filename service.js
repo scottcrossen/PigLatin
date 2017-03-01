@@ -21,7 +21,9 @@ app.get('/messages', function(request, response){
 });
 
 app.post('/messages', function(request, response){
-    if(request.body.message.length >0 && request.body.message.length < 99) new_message(request.body.message);
+    if(request.body != undefined && request.body != null && Array.isArray(request.body.message){
+	if(request.body.message.length >0 && request.body.message.length < 99) new_message(request.body.message);
+    }
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify(messages));
 });
