@@ -38,7 +38,7 @@ update_messages=function($scope, $http){
 	port: 8080
     }).then(function(response) {
 	console.log(response);
-	$scope.messages=response;
+	$scope.messages=response.data;
     }, function(response){
 	console.log(response);
     });
@@ -53,7 +53,7 @@ new_message=function($scope, $http, message){
 	data: message
     }).then(function(response) {
 	console.log(response);
-	$scope.messages=response;
+	$scope.messages=response.data;
     }, function(response){
 	console.log(response);
     });
