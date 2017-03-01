@@ -1,16 +1,16 @@
 angular.module('app', [])
     .controller('mainCtrl', function($scope,$http) {
 	$scope.messages = ["Error in retrieving messages"];
-	$scope.translation = "";
+	update_messages($scope, $http);
 	$scope.translate = function (input) {
 	    console.log("Translate button clicked"); 
 	    if (input != null && input != undefined){
-		new_message($scope, translate(input.text));
+		new_message($scope, $http, translate(input.text));
 	    }
 	};
 	$scope.refresh = function(){
 	    console.log("Refresh button clicked");
-	    update_messages($scope);
+	    update_messages($scope, $http);
 	}
     });
 translate=function(text){
@@ -31,19 +31,19 @@ translate=function(text){
     }
     return latin_array.join(" ").replace(/\s[^\w\s]|_/g, function($1){return $1.substring(1)});
 }
-update_messages=function($scope){
+update_messages=function($scope, $http){
     $http({
 	method : "GET",
-	url : "messages",
+	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080
-    }).success(function(response) {
+    }).then(function(response) {
 	console.log(response);
 	$scope.messages=response;
-    }).failure(function(response){
+    }, function(response){
 	console.log(response);
     });
 }
-new_message=function($scope, message){
+new_message=function($scope, $http, message){
     if($scope.messages.length>=5) $scope.messages.shift();
     $scope.messages.push(message);
     $http({
@@ -51,10 +51,10 @@ new_message=function($scope, message){
 	url : "messages",
 	port: 8080,
 	data: message
-    }).success(function(response) {
+    }).then(function(response) {
 	console.log(response);
 	$scope.messages=response;
-    }).failure(function(response){
+    }, function(response){
 	console.log(response);
     });
 }
