@@ -2,7 +2,7 @@ angular.module('app', [])
 .config(function($httpProvider) {
     $httpProvider.defaults.transformRequest = function(data) {        
         if (data === undefined) { return data; } 
-        return $httpProvider.param(data);
+        return $.param(data);
     };
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
 })
@@ -44,22 +44,44 @@ update_messages=function($scope, $http){
 	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080
     }).then(function(response) {
+	console.log("Get request suceeded");
+        console.log("Get request finished with response:");
 	console.log(response);
 	$scope.messages=response.data;
     }, function(response){
+	console.log("Get request failed");
+        console.log("Get request finished with response:");
 	console.log(response);
     });
 }
-new_message=function($scope, $http, message){
-    console.log(message);
+new_message=function($scope, $http, text){
     if($scope.messages.length>=5) $scope.messages.shift();
-    $scope.messages.push(message);
+    if(!contains($scope.messages,text)) $scope.messages.push(text);
+    // It turns out that there is a problem with angular's http poster so we'll use ajax.
+    $.ajax({
+	dataType: undefined,
+	type: "POST",
+	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
+	port: 8080,
+	data: {
+	    message: text
+	},
+    }, function(response) {
+	console.log("Post request suceeded");
+	$scope.messages=response.data;
+    }).fail(function(response) {
+	console.log("Post request failed")
+    }).always(function(response){
+	console.log("Post request finished with response:");
+	console.log(response);
+});
+/*
     $http({
 	method : "POST",
 	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080,
 	data: {
-	    test: 'test'
+	    message: text
 	},
 	headers: {
             "Content-Type": undefined
@@ -69,5 +91,11 @@ new_message=function($scope, $http, message){
 	$scope.messages=response.data;
     }, function(response){
 	console.log(response);
-    });
+    });*/
 }
+contains=function(array, object) {
+    for (var i = 0; i < array.length; i++)
+        if (array[i] === object)
+            return true;
+    return false;
+};
