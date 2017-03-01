@@ -68,12 +68,12 @@ new_message=function($scope, $http, text){
 	},
     }, function(response) {
 	console.log("Post request suceeded");
-	$scope.messages=response.data;
+	$scope.messages=response;
     }).fail(function(response) {
 	console.log("Post request failed")
     }).always(function(response){
 	console.log("Post request finished with response:");
-	console.log(response);
+	console.log(response.data);
 });
 /*
     $http({
