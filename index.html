@@ -10,9 +10,35 @@
   <!-- It turns out that there are some http bugs in angular so I'll use ajax via jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="translator.js"></script>
+  <style>
+    body {
+      background-image:url("grass.png");
+      background-position:0px -400px;
+      background-repeat:no-repeat;
+      background-size:2000px 1500px;
+    }
+    #firstPig {
+      width:100px;
+      height:100px;
+      -webkit-animation-name: animate;
+      -webkit-animation-duration: 4s;
+      background-image:url("pig-curly-ears.png");
+      //background-color:pink;
+      z-index:4;
+      position:fixed;
+      bottom:1000px;
+    }
+    @-webkit-keyframes animate {
+      from {background-image:url("pig-curly-ears.png");}
+      to {background-image:url("pig-straight-ears.png");}
+      //from {background-color:pink;}
+      //to {background-color:blue;}
+    }
+  </style>
 </head>
 <body>
   <div ng-app='app' ng-controller='mainCtrl'>
+  <div index="firstPig"></div>
     <div class="container">
 
       <div class="message-list">
