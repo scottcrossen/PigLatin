@@ -1,29 +1,44 @@
-angular.module('app', [])
+angular.module('app', ['angularModalService'])
 .config(function($httpProvider) {
     $httpProvider.defaults.transformRequest = function(data) {        
         if (data === undefined) { return data; } 
         return $.param(data);
     };
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
-}).controller('mainCtrl', ['$scope','$http',function($scope,$http) {
-
-
-
-    
-	console.log("Angular initialized!");
-	$scope.messages = ["Error in retrieving messages"];
-	update_messages($scope, $http);
-	$scope.translate = function (input) {
-	    console.log("Translate button clicked"); 
-	    if (input != null && input != undefined){
-		new_message($scope, $http, translate(input.text));
-	    }
-	};
-	$scope.refresh = function(){
-	    console.log("Refresh button clicked");
-	    update_messages($scope, $http);
+}).controller('mainCtrl', function($scope,$http,ModalService) {
+    console.log("Angular initialized!");
+    $scope.messages = ["Error in retrieving messages"];
+    $scope.name={first: "Anonymous", last: "", handle: "Unknown"}
+    update_messages($scope, $http);
+    $scope.show = function() {
+        ModalService.showModal({
+            templateUrl: 'modal.html',
+            controller: "ModalController"
+        }).then(function(modal) {
+            modal.element.modal();
+            modal.close.then(function(result) {
+		$scope.name.first=result.first;
+		$scope.name.last=result.last;
+		$scope.name.handle=find_handle(result.first);
+            });
+        });
+    };
+    $scope.show();
+    $scope.translate = function (input) {
+	console.log("Translate button clicked"); 
+	if (input != null && input != undefined){
+	    new_message($scope, $http, translate(input.text));
 	}
-    }]);
+    };
+    $scope.refresh = function(){
+	console.log("Refresh button clicked");
+	update_messages($scope, $http);
+    }
+}).controller('ModalController', function($scope, close) {
+ $scope.close = function(result) {
+ 	close(result, 500);
+ };
+});
 translate=function(text){
     if (text=="" || text==null || text == undefined) return "";
     english_array=text.replace(/[^\w\s]|_/g, function ($1) { return ' ' + $1 + ' ';}).replace(/[ ]+/g, ' ').split(' ');
@@ -106,3 +121,6 @@ contains=function(array, object) {
             return true;
     return false;
 };
+find_handle=function(name){
+    return name;
+}
