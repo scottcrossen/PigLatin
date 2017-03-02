@@ -14,26 +14,22 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
   <script src="translator.js"></script>
+  
+  <style>
+    body {
+      background-image:url("grass.png");
+      background-position:0px 30%;
+      background-repeat:no-repeat;
+      background-size:2000px 1500px;
+    }
+  </style>
 </head>
 <body style="min-width:450px;">
-  <!-- Jumbotron -->  
-  <div class="jumbotron text-center" style="
-					    background-repeat: no-repeat; 
-					    background-size: 100% auto;
-					    background-position: 0% 100%; 
-					    background-image: url(./background.jpg);
-					    ">
-    <h1 style="/*color: white;*/">Pig Latin Chat Room</h1>
-    <p></p> 
-  </div>
+  <img src="pig-curly-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;">
+  <img src="pig-pointy-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
 
   <div ng-app='app' ng-controller='mainCtrl'>
-    <div class="container" style="/*
-					    background-repeat: no-repeat; 
-					    background-size: 100% auto;
-					    background-position: 0% 25%; 
-					    background-image: url(./background.jpg);
-					    */">
+    <div class="container">
 
 
 
@@ -73,7 +69,7 @@
       
       <div id="message-list" style="padding-bottom: 20px;">
 	<div class="row">
-	  <div class="col-xs-8 col-xs-offset-2 well pre-scrollable">
+	  <div class="col-md-4 well pre-scrollable">
 	    <div class="media" ng-repeat="message in messages" >
 	      <div class="media-body">
 		<h4 class="media-heading">{{message.name}}</h4>
@@ -83,19 +79,19 @@
 	  </div>
 	</div>
 	<div class="row">
-	  <div class="col-xs-8 col-xs-offset-2" style="display:block; text-align: center;">
+	  <div class="col-md-4" style="display:block; text-align: center;">
 	    <button ng-click="refresh()" type="submit" class="btn btn-outline btn-xl page-scroll" style="width:70%; text-align: center;">Refresh Message Board</button>
 	  </div>
 	</div>
       </div>
       
       <div id="input-field" class="row" style="margin-top: 50px;">
-	<div class="col-xs-8 col-xs-offset-2">
+	<div class="col-md-4">
 	  <form ng-submit="translate(input)">
-	    <div class="col-md-10 col-xs-8" style="padding-right:5px">
+	    <div class="col-md-8 col-xs-10" style="padding-right:5px">
 	      <textarea id="input_text" class="form-control" rows="5" placeholder="Enter Text Here" ng-model="input.text"></textarea>
 	    </div>
-	    <div class="col-md-2 col-xs-4" style="padding-left: 0; height:115px; max-width:107px;">
+	    <div class="col-md-4 col-xs-4" style="padding-left: 0; height:115px; max-width:107px;">
 	      <button type="submit" class="btn btn-outline btn-xl page-scroll" style="height:100%; width:100%;"><p style="
     word-break: normal;
     white-space: normal;">Translate & Send</p></button>
