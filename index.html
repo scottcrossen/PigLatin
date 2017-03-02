@@ -43,6 +43,7 @@
                 <h4 class="modal-title">Enter Your Name</h4>
               </div>
               <div class="modal-body">
+		<p ng-show="modal_error()"> Please enter a valid name</p>
 		<p> A pig-name will be assigned as your handle.</p>
               </div>
               <div class="modal-footer">
@@ -71,7 +72,7 @@
 	    <div class="media" ng-repeat="message in messages" >
 	      <div class="media-body">
 		<h4 class="media-heading">{{message.name}}</h4>
-		<p>{{message}}</p>
+		<p>{{message.text}}</p>
 	      </div>
 	    </div>
 	  </div>

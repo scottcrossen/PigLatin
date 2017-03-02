@@ -1,3 +1,4 @@
+amount_of_messages=5;
 angular.module('app', ['angularModalService'])
 .config(function($httpProvider) {
     $httpProvider.defaults.transformRequest = function(data) {        
@@ -7,8 +8,8 @@ angular.module('app', ['angularModalService'])
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
 }).controller('mainCtrl', function($scope,$http,ModalService) {
     console.log("Angular initialized!");
-    $scope.messages = ["Error in retrieving messages"];
-    $scope.name={first: "Anonymous", last: "", handle: "Unknown"}
+    $scope.messages = [{text:"Error in retrieving messages"}];
+    $scope.name={first: "Anonymous", last: "", handle: "Unknown Pig"}
     update_messages($scope, $http);
     $scope.show = function() {
         ModalService.showModal({
@@ -17,9 +18,19 @@ angular.module('app', ['angularModalService'])
         }).then(function(modal) {
             modal.element.modal();
             modal.close.then(function(result) {
-		$scope.name.first=result.first;
-		$scope.name.last=result.last;
-		$scope.name.handle=find_handle(result.first);
+		if(result != undefined && result.first != undefined && result.first.length > 0){
+		    $scope.name.first=capitalize_first(result.first);
+		    $scope.name.last=capitalize_first(result.last);
+		    $scope.name.handle=find_handle(result.first.toLowerCase());
+		}
+		else{
+		    $scope.name= {
+			first: "Anonymous",
+			Last:"",
+			handle:"Unknown Pig"
+		    }
+		    $scope.show();
+		}
             });
         });
     };
@@ -74,9 +85,10 @@ update_messages=function($scope, $http){
     });
     return $scope.messages;
 }
-new_message=function($scope, $http, text){
-    if($scope.messages.length>=5) $scope.messages.shift();
-    if(!contains($scope.messages,text)) $scope.messages.push(text);
+new_message=function($scope, $http, txt){
+    if($scope.messages[0].text == "Error in retrieving messages") $scope.messages.shift();
+    if($scope.messages.length>=amount_of_messages) $scope.messages.shift();
+    if(!contains($scope.messages, txt)) $scope.messages.push({name: convert_name($scope.name), text: txt});
     // It turns out that there is a problem with angular's http poster so we'll use ajax.
     $.ajax({
 	dataType: undefined,
@@ -84,7 +96,8 @@ new_message=function($scope, $http, text){
 	url : "http://ec2-35-161-98-124.us-west-2.compute.amazonaws.com:8080/messages",
 	port: 8080,
 	data: {
-	    message: text
+	    name: convert_name($scope.name),
+	    text: txt
 	},
     }).done(function(response) {
 	console.log("Post request suceeded");
@@ -117,10 +130,47 @@ new_message=function($scope, $http, text){
 }
 contains=function(array, object) {
     for (var i = 0; i < array.length; i++)
-        if (array[i] === object)
+        if (array[i].text === object)
             return true;
     return false;
 };
 find_handle=function(name){
-    return name;
+    return pig_names[name.charCodeAt(0)-97];
+}
+pig_names=[
+    "Ace",
+    "Babe",
+    "Gouger",
+    "Snouter",
+    "Rooter",
+    "Tusker",
+    "Gryllus",
+    "Hamilton",
+    "Henry the Pig",
+    "Hercules",
+    "Jodie",
+    "Little Pig Robinson",
+    "Old Major",
+    "Olivia",
+    "Piglet",
+    "Positive Pig",
+    "Toby the Lear,ned Pig",
+    "The Transcendent Pig",
+    "Napoleon",
+    "Wilbur",
+    "Mandachuva",
+    "Leaf-eater",
+    "Star-looker",
+    "Planter",
+    "Snowball",
+    "Squealer"
+    ]
+convert_name=function(name){
+    return name.handle+" ("+name.first+" "+name.last+")";
+}
+function capitalize_first(string) {
+    if(string != undefined && string.length >0)
+	return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    else
+	return "";
 }
