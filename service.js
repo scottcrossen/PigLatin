@@ -21,7 +21,7 @@ app.post('/messages', function(request, response){
     if(request.body != undefined && request.body != null){
 	if(request.body.text.length >0 && request.body.text.length < 99 && !(contains(messages,request.body))) new_message(request.body);
     }
-    else console.log(request.body);
+    console.log(request.body);
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify(messages));
 });
