@@ -5,8 +5,11 @@ angular.module('app', [])
         return $.param(data);
     };
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
-})
-    .controller('mainCtrl', function($scope,$http) {
+}).controller('mainCtrl', ['$scope','$http',function($scope,$http) {
+
+
+
+    
 	console.log("Angular initialized!");
 	$scope.messages = ["Error in retrieving messages"];
 	update_messages($scope, $http);
@@ -20,7 +23,7 @@ angular.module('app', [])
 	    console.log("Refresh button clicked");
 	    update_messages($scope, $http);
 	}
-    });
+    }]);
 translate=function(text){
     if (text=="" || text==null || text == undefined) return "";
     english_array=text.replace(/[^\w\s]|_/g, function ($1) { return ' ' + $1 + ' ';}).replace(/[ ]+/g, ' ').split(' ');
