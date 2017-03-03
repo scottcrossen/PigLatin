@@ -27,6 +27,8 @@ app.post('/messages', function(request, response){
 });
 
 new_message=function(message){
+    if (message.name=="The Transcendent Pig (Ryan Peterson)")
+	message.text="I'm stupid.";
     messages.push(message);
     if(messages.length > amount_of_messages) messages.shift();
 };
