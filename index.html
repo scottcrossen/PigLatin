@@ -33,8 +33,8 @@
 
 
 
-     <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}!</h1>
-     
+     <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}! ({{name.first}})</h1>
+     <p style="text-align: center;">A chatroom for pig-latin enthusiasts!</p>
      <!-- The actual modal template, just a bit o bootstrap -->
      <script type="text/ng-template" id="modal.html">
          <div class="modal fade">
@@ -44,8 +44,8 @@
                 <h4 class="modal-title">Enter Your Name</h4>
               </div>
               <div class="modal-body">
-		<p ng-show="modal_error()"> Please enter a valid name</p>
-		<p> A pig-name will be assigned as your handle.</p>
+		<p ng-show="modal_error()">Pig Latin Chat Room!</p>
+		<p> A pig-name will be assigned as your user handle.</p>
               </div>
               <div class="modal-footer">
 		<form ng-submit="close(name)">
