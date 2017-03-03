@@ -19,9 +19,9 @@
       background-position:0px 30%;
       background-repeat:no-repeat;
       background-size:2000px 1500px;">
-  <img src="pig-curly-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;">
-  <img src="pig-pointy-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
   <div ng-app='app' ng-controller='mainCtrl'>
+  <img id="test" ng-src="{{pig1}}" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;" >
+  <img ng-src="{{pig2}}" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
     <div class="container">
      <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}! ({{name.first}})</h1>
      <p style="text-align: center; margin-top: -30px;">A Chatroom For Pig-Latin Enthusiasts!</p>
@@ -51,7 +51,7 @@
           </div>
         </div>
      </script>
-      <div id="message-list" style="padding-bottom: 20px;">
+      <div id="message-list" style="/*padding-bottom: 20px;*/">
 	<div class="row">
 	  <div class="col-md-4 well pre-scrollable">
 	    <div class="media" ng-repeat="message in messages" >
@@ -62,13 +62,13 @@
 	    </div>
 	  </div>
 	</div>
-	<div class="row">
+	<div class="row" style="display:none;">
 	  <div class="col-md-4" style="display:block; text-align: center;">
 	    <button ng-click="refresh()" type="submit" class="btn btn-outline btn-xl page-scroll" style="width:70%; text-align: center;">Refresh Message Board</button>
 	  </div>
 	</div>
       </div>
-      <div id="input-field" class="row" style="margin-top: 50px;">
+      <div id="input-field" class="row" style="/*margin-top: 50px;*/">
 	<div class="col-md-4">
 	  <form ng-submit="translate(input)">
 	    <div class="col-lg-8 col-md-8 col-sm-10 col-xs-9" style="padding-right:5px">
