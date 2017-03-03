@@ -6,7 +6,7 @@ angular.module('app', ['angularModalService'])
         return $.param(data);
     };
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'; 
-}).controller('mainCtrl', function($scope,$http,$interval,ModalService) {
+}).controller('mainCtrl', ['$scope', '$http', '$interval', 'ModalService', function($scope, $http, $interval, ModalService) {
     update_messages=function($scope, $http){
 	$http({
 	    method : "GET",
@@ -167,7 +167,7 @@ angular.module('app', ['angularModalService'])
     $interval($scope.refresh, 3000);
     $interval($scope.toggle_pig1, 5000);
     $interval($scope.toggle_pig2, 4000);
-}).controller('ModalController', function($scope, close) {
+}]).controller('ModalController', function($scope, close) {
     $scope.close = function(result) {
  	close(result, 500);
     };

@@ -53,13 +53,14 @@
      </script>
       <div id="message-list" style="/*padding-bottom: 20px;*/">
 	<div class="row">
-	  <div class="col-md-4 well pre-scrollable">
+	  <div id="scoller" class="col-md-4 well pre-scrollable">
 	    <div class="media" ng-repeat="message in messages" >
 	      <div class="media-body">
 		<h4 class="media-heading">{{message.name}}</h4>
 		<p>{{message.text}}</p>
 	      </div>
 	    </div>
+	    <a id="bottom"></a>
 	  </div>
 	</div>
 	<div class="row" style="display:none;">
