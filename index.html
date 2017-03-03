@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Pig Latin Translator</title>
+  <title>Pig Latin Chatroom</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- If you like you can remove the link to the bootstrap stylesheet below -->
   <!-- It turns out that there are some http bugs in angular so I'll use ajax via jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <!-- The modal requires bootstrap js even though its done through angular -->
@@ -14,20 +13,24 @@
   <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
   <script src="translator.js"></script>
 </head>
+<!-- Background image -->
 <body style="min-width:450px;
-      background-image:url(./grass.png);
-      background-position:0px 30%;
-      background-repeat:no-repeat;
-      background-size:2000px 1500px;">
+	     background-image:url(./grass.png);
+	     background-position:0px 30%;
+	     background-repeat:no-repeat;
+	     background-size:2000px 1500px;">
+  <!-- Define Angular App -->
   <div ng-app='app' ng-controller='mainCtrl'>
-  <img id="test" ng-src="{{pig1}}" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;" >
-  <img ng-src="{{pig2}}" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
+    <!-- Pig Images -->
+    <img ng-src="{{pig1}}" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;" >
+    <img ng-src="{{pig2}}" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
+    <!-- Content body -->
     <div class="container">
-     <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}! ({{name.first}})</h1>
-     <p style="text-align: center; margin-top: -30px;">A Chatroom For Pig-Latin Enthusiasts!</p>
-     <!-- The actual modal template, just a bit o bootstrap -->
-     <script type="text/ng-template" id="modal.html">
-         <div class="modal fade">
+      <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}! ({{name.first}})</h1>
+      <p style="text-align: center; margin-top: -30px;">A Chatroom For Pig-Latin Enthusiasts!</p>
+      <!-- I could have made another html page for the modal but I didn't want to -->
+      <script type="text/ng-template" id="modal.html">
+        <div class="modal fade">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -50,7 +53,8 @@
             </div>
           </div>
         </div>
-     </script>
+      </script>
+      <!-- End of modal. Start of message scroller -->
       <div id="message-list" style="/*padding-bottom: 20px;*/">
 	<div class="row">
 	  <div id="scoller" class="col-md-4 well pre-scrollable">
@@ -63,12 +67,14 @@
 	    <a id="bottom"></a>
 	  </div>
 	</div>
+	<!-- Hide button that refreshes page. I no longer need it but don't want to delete it. -->
 	<div class="row" style="display:none;">
 	  <div class="col-md-4" style="display:block; text-align: center;">
 	    <button ng-click="refresh()" type="submit" class="btn btn-outline btn-xl page-scroll" style="width:70%; text-align: center;">Refresh Message Board</button>
 	  </div>
 	</div>
       </div>
+      <!-- End of message scoller. Start of input field -->
       <div id="input-field" class="row" style="/*margin-top: 50px;*/">
 	<div class="col-md-4">
 	  <form ng-submit="translate(input)">
@@ -77,14 +83,16 @@
 	    </div>
 	    <div class="col-lg-4 col-md-4 col-sm-2 col-xs-3" style="padding-left: 0; height:115px; max-width:107px;">
 	      <button type="submit" class="btn btn-outline btn-xl page-scroll" style="height:100%; width:100%;"><p style="
-    word-break: normal;
-    white-space: normal;">Translate & Post</p></button>
+															  word-break: normal;
+															  white-space: normal;">Translate & Post</p></button>
 	    </div>
 	  </form>
 	</div>
       </div>
+      <!-- End of input field -->
     </div>
   </div>
+  <!-- End of content and app. Give some padding at the bottom -->
   <br>
   <br>
   <br>
