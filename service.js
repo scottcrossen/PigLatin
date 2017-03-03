@@ -32,7 +32,7 @@ new_message=function(message){
 };
 contains=function(array, object) {
     for (var i = 0; i < array.length; i++)
-        if (array[i] === object)
+        if (array[i] == object)
             return true;
     return false;
 };
