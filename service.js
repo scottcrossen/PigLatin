@@ -9,8 +9,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8080);
 
-amount_of_messages=5;
-messages=[{text: "message 1"}, {text: "message 2"},{text: "message 3"},{text: "message 4"}, {text: "message 5"}];
+amount_of_messages=25;
+messages=[{text: "Made by Scott & Melanie"}, {text: "The server was just restarted by the admin"},{text: "Please start typing into the input field to send others your texts!"}];
 
 app.get('/messages', function(request, response){
     response.setHeader('Content-Type', 'application/json');

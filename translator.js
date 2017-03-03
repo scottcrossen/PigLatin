@@ -1,4 +1,4 @@
-amount_of_messages=5;
+amount_of_messages=25;
 angular.module('app', ['angularModalService'])
 .config(function($httpProvider) {
     $httpProvider.defaults.transformRequest = function(data) {        
