@@ -4,7 +4,9 @@
   "description": "translate messages to pig lating and post to message board",
   "main": "service.js",
   "dependencies": {
-    "body-parser": "^1.16.1"
+    "body-parser": "^1.16.1",
+    "express": "^4.15.0",
+    "forever": "^0.15.3"
   },
   "devDependencies": {},
   "scripts": {
