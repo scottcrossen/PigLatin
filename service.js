@@ -9,7 +9,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8080);
 
-messages=["message 1", "message 2","message 3","message 4", "message 5"];
+amount_of_messages=25;
+messages=[{text: "Made by Scott & Melanie"}, {text: "The server was just restarted by the admin"},{text: "Please start typing into the input field to send others your texts!"}];
 
 app.get('/messages', function(request, response){
     response.setHeader('Content-Type', 'application/json');
@@ -18,16 +19,16 @@ app.get('/messages', function(request, response){
 
 app.post('/messages', function(request, response){
     if(request.body != undefined && request.body != null){
-	if(request.body.message.length >0 && request.body.message.length < 99 && !(contains(messages,request.body.message))) new_message(request.body.message);
+	if(request.body.text.length >0 && request.body.text.length < 99 && !(contains(messages,request.body))) new_message(request.body);
     }
-    else console.log(request.body);
+    console.log(request.body);
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify(messages));
 });
 
 new_message=function(message){
     messages.push(message);
-    messages.shift();
+    if(messages.length > amount_of_messages) messages.shift();
 };
 contains=function(array, object) {
     for (var i = 0; i < array.length; i++)

@@ -4,56 +4,92 @@
   <title>Pig Latin Translator</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <!-- If you like you can remove the link to the bootstrap stylesheet above -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <!-- If you like you can remove the link to the bootstrap stylesheet below -->
   <!-- It turns out that there are some http bugs in angular so I'll use ajax via jquery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- The modal requires bootstrap js even though its done through angular -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
   <script src="translator.js"></script>
-  <style>
-    body {
-      background-image:url("grass.png");
-      background-position:0px -400px;
-      background-repeat:no-repeat;
-      background-size:2000px 1500px;
-    }
-    #firstPig {
-      width:100px;
-      height:100px;
-      -webkit-animation-name: animate;
-      -webkit-animation-duration: 4s;
-      background-image:url("pig-curly-ears.png");
-      //background-color:pink;
-      z-index:4;
-      position:fixed;
-      bottom:1000px;
-    }
-    @-webkit-keyframes animate {
-      from {background-image:url("pig-curly-ears.png");}
-      to {background-image:url("pig-straight-ears.png");}
-      //from {background-color:pink;}
-      //to {background-color:blue;}
-    }
-  </style>
 </head>
-<body>
+<body style="min-width:450px;
+      background-image:url(./grass.png);
+      background-position:0px 30%;
+      background-repeat:no-repeat;
+      background-size:2000px 1500px;">
+  <img src="pig-curly-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;">
+  <img src="pig-pointy-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
   <div ng-app='app' ng-controller='mainCtrl'>
-  <div index="firstPig"></div>
     <div class="container">
-
-      <div class="message-list">
-	<div ng-repeat="message in messages" class="well" style="margin-top: 25px; background-color: white; color: black;">
-	  {{message}}
-	</div >
+     <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}! ({{name.first}})</h1>
+     <p style="text-align: center; margin-top: -30px;">A Chatroom For Pig-Latin Enthusiasts!</p>
+     <!-- The actual modal template, just a bit o bootstrap -->
+     <script type="text/ng-template" id="modal.html">
+         <div class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Pig Latin Chat Room!</h4>
+              </div>
+              <div class="modal-body">
+		<p> A pig-name will be assigned as your user handle.</p>
+              </div>
+              <div class="modal-footer">
+		<form ng-submit="close(name)">
+		  <div class="col-xs-6">
+		    <input id="first_name" class="form-control" rows="5" placeholder="First Name" ng-model="name.first"></input>
+		  </div>
+		  <div class="col-xs-6">
+		    <input id="last_name" class="form-control" rows="5" placeholder="Last Name" ng-model="name.last"></input>
+		  </div>
+                  <button type="button" ng-click="close(name)" class="btn btn-primary" data-dismiss="modal" style="margin-top: 15px">Submit</button>
+		</form>
+              </div>
+            </div>
+          </div>
+        </div>
+     </script>
+      <div id="message-list" style="padding-bottom: 20px;">
+	<div class="row">
+	  <div class="col-md-4 well pre-scrollable">
+	    <div class="media" ng-repeat="message in messages" >
+	      <div class="media-body">
+		<h4 class="media-heading">{{message.name}}</h4>
+		<p>{{message.text}}</p>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4" style="display:block; text-align: center;">
+	    <button ng-click="refresh()" type="submit" class="btn btn-outline btn-xl page-scroll" style="width:70%; text-align: center;">Refresh Message Board</button>
+	  </div>
+	</div>
       </div>
-
-      <button ng-click="refresh()" type="submit" class="btn btn-outline btn-xl page-scroll">Refresh Message Board</button>
-      
-      <form class="form-inlne" ng-submit="translate(input)">
-	<textarea id="input_text" class="form-control form-inline" style="margin-top: 25px" rows="5" placeholder="Enter Text Here" ng-model="input.text"></textarea>
-	<button type="submit" class="btn btn-outline btn-xl page-scroll">Translate & Send</button>
-      </form>
+      <div id="input-field" class="row" style="margin-top: 50px;">
+	<div class="col-md-4">
+	  <form ng-submit="translate(input)">
+	    <div class="col-md-8 col-xs-10" style="padding-right:5px">
+	      <textarea id="input_text" class="form-control" rows="5" placeholder="Enter Text Here" ng-model="input.text"></textarea>
+	    </div>
+	    <div class="col-md-4 col-xs-4" style="padding-left: 0; height:115px; max-width:107px;">
+	      <button type="submit" class="btn btn-outline btn-xl page-scroll" style="height:100%; width:100%;"><p style="
+    word-break: normal;
+    white-space: normal;">Translate & Post</p></button>
+	    </div>
+	  </form>
+	</div>
+      </div>
     </div>
   </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
 </body>
 </html>
