@@ -9,30 +9,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <!-- The modal requires bootstrap js even though its done through angular -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script src="https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js"></script>
   <script src="translator.js"></script>
-  
-  <style>
-    body {
-      background-image:url("grass.png");
+</head>
+<body style="min-width:450px;
+      background-image:url(./grass.png);
       background-position:0px 30%;
       background-repeat:no-repeat;
-      background-size:2000px 1500px;
-    }
-  </style>
-</head>
-<body style="min-width:450px;">
+      background-size:2000px 1500px;">
   <img src="pig-curly-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 50%; margin-top:300px;">
   <img src="pig-pointy-ears.png" style="height: 200px; width: auto; position: absolute; margin-left: 75%; margin-top:400px;">
-
   <div ng-app='app' ng-controller='mainCtrl'>
     <div class="container">
-
-
-
      <h1 style="text-align: center; margin-bottom: 50px;">Welcome {{name.handle}}! ({{name.first}})</h1>
      <p style="text-align: center; margin-top: -30px;">A Chatroom For Pig-Latin Enthusiasts!</p>
      <!-- The actual modal template, just a bit o bootstrap -->
@@ -61,11 +51,6 @@
           </div>
         </div>
      </script>
-
-
-
-
-      
       <div id="message-list" style="padding-bottom: 20px;">
 	<div class="row">
 	  <div class="col-md-4 well pre-scrollable">
@@ -83,7 +68,6 @@
 	  </div>
 	</div>
       </div>
-      
       <div id="input-field" class="row" style="margin-top: 50px;">
 	<div class="col-md-4">
 	  <form ng-submit="translate(input)">
@@ -93,7 +77,7 @@
 	    <div class="col-md-4 col-xs-4" style="padding-left: 0; height:115px; max-width:107px;">
 	      <button type="submit" class="btn btn-outline btn-xl page-scroll" style="height:100%; width:100%;"><p style="
     word-break: normal;
-    white-space: normal;">Translate & Send</p></button>
+    white-space: normal;">Translate & Post</p></button>
 	    </div>
 	  </form>
 	</div>
